@@ -1,4 +1,4 @@
-package com.tienda.online.entities;
+package com.tienda.online.models;
 
 import java.time.LocalDateTime;
 import jakarta.persistence.Column;

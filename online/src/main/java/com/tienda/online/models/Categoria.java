@@ -1,6 +1,5 @@
-package com.tienda.online.entities;
+package com.tienda.online.models;
 import java.time.LocalDateTime;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,28 +9,19 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "TBL_PRODUCTOS",
+@Table(name = "CAT_CATEGORIAS",
        uniqueConstraints = {
-           @UniqueConstraint(columnNames = {"NID_SUBCATEGORIA", "CNOMBRE"})
+           @UniqueConstraint(columnNames = {"CNOMBRE"})
        })
-public class Producto {
+public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "NID_PRODUCTO")
-    private Integer idProducto;
+    @Column(name = "NID_CATEGORIA") 
+    private Integer idCategoria;
 
-    @Column(name = "CNOMBRE", length = 200, nullable = false)
+    @Column(name = "CNOMBRE", length = 100, nullable = false)
     private String nombre;
-
-    @Column(name = "CDESCRIPCION", columnDefinition = "TEXT")
-    private String descripcion;
-
-    @Column(name = "MPRECIO", precision = 10, scale = 2)
-    private Double precio;
-
-    @Column(name = "NID_SUBCATEGORIA", nullable = false)
-    private Integer idSubcategoria;
 
     @Column(name = "BHABILITADO", nullable = false)
     private Boolean habilitado = true;
@@ -43,14 +33,12 @@ public class Producto {
     @Column(name = "DFECHA_BAJA")
     private LocalDateTime fechaBaja;
 
-    // Getters y Setters
-
-    public Integer getIdProducto() {
-        return idProducto;
+    public Integer getIdCategoria() {
+        return idCategoria;
     }
 
-    public void setIdProducto(Integer idProducto) {
-        this.idProducto = idProducto;
+    public void setIdCategoria(Integer idCategoria) {
+        this.idCategoria = idCategoria;
     }
 
     public String getNombre() {
@@ -59,30 +47,6 @@ public class Producto {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public Double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(Double precio) {
-        this.precio = precio;
-    }
-
-    public Integer getSubcategoria() {
-        return idSubcategoria;
-    }
-
-    public void setSubcategoria( Integer idSubcategoria) {
-        this.idSubcategoria = idSubcategoria;
     }
 
     public Boolean getHabilitado() {

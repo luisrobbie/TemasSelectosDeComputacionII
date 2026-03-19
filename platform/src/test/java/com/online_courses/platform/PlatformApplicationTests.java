@@ -1,10 +1,10 @@
-package com.tienda.online;
+package com.online_courses.platform;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest(classes = OnlineApplication.class)
-class OnlineApplicationTests {
+@SpringBootTest
+class PlatformApplicationTests {
 
 	@Test
 	void contextLoads() {

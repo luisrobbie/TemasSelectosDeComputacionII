@@ -1,5 +1,7 @@
-package com.tienda.online.entities;
+package com.tienda.online.models;
+
 import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,15 +11,18 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "CAT_CATEGORIAS",
+@Table(name = "TBL_SUBCATEGORIAS",
        uniqueConstraints = {
-           @UniqueConstraint(columnNames = {"CNOMBRE"})
+           @UniqueConstraint(columnNames = {"NID_CATEGORIA", "CNOMBRE"})
        })
-public class Categoria {
+public class Subcategoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "NID_CATEGORIA") 
+    @Column(name = "NID_SUBCATEGORIA")
+    private Integer idSubcategoria;
+
+    @Column(name = "NID_CATEGORIA")
     private Integer idCategoria;
 
     @Column(name = "CNOMBRE", length = 100, nullable = false)
@@ -33,11 +38,20 @@ public class Categoria {
     @Column(name = "DFECHA_BAJA")
     private LocalDateTime fechaBaja;
 
+    // Getters y Setters
+    public Integer getIdSubcategoria() {
+        return idSubcategoria;
+    }
+
+    public void setIdSubcategoria(Integer idSubcategoria) {
+        this.idSubcategoria = idSubcategoria;
+    }
+
     public Integer getIdCategoria() {
         return idCategoria;
     }
 
-    public void setIdCategoria(Integer idCategoria) {
+    public void setCategoria(Integer idCategoria) {
         this.idCategoria = idCategoria;
     }
 

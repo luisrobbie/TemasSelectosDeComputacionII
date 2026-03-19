@@ -1,5 +1,5 @@
-package com.tienda.online.entities;
-
+package com.tienda.online.models;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -11,22 +11,28 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "TBL_SUBCATEGORIAS",
+@Table(name = "TBL_PRODUCTOS",
        uniqueConstraints = {
-           @UniqueConstraint(columnNames = {"NID_CATEGORIA", "CNOMBRE"})
+           @UniqueConstraint(columnNames = {"NID_SUBCATEGORIA", "CNOMBRE"})
        })
-public class Subcategoria {
+public class Producto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "NID_SUBCATEGORIA")
-    private Integer idSubcategoria;
+    @Column(name = "NID_PRODUCTO")
+    private Integer idProducto;
 
-    @Column(name = "NID_CATEGORIA")
-    private Integer idCategoria;
-
-    @Column(name = "CNOMBRE", length = 100, nullable = false)
+    @Column(name = "CNOMBRE", length = 200, nullable = false)
     private String nombre;
+
+    @Column(name = "CDESCRIPCION", columnDefinition = "TEXT")
+    private String descripcion;
+
+    @Column(name = "MPRECIO", precision = 10, scale = 2)
+    private BigDecimal precio;
+
+    @Column(name = "NID_SUBCATEGORIA", nullable = false)
+    private Integer idSubcategoria;
 
     @Column(name = "BHABILITADO", nullable = false)
     private Boolean habilitado = true;
@@ -39,20 +45,13 @@ public class Subcategoria {
     private LocalDateTime fechaBaja;
 
     // Getters y Setters
-    public Integer getIdSubcategoria() {
-        return idSubcategoria;
+
+    public Integer getIdProducto() {
+        return idProducto;
     }
 
-    public void setIdSubcategoria(Integer idSubcategoria) {
-        this.idSubcategoria = idSubcategoria;
-    }
-
-    public Integer getIdCategoria() {
-        return idCategoria;
-    }
-
-    public void setCategoria(Integer idCategoria) {
-        this.idCategoria = idCategoria;
+    public void setIdProducto(Integer idProducto) {
+        this.idProducto = idProducto;
     }
 
     public String getNombre() {
@@ -61,6 +60,30 @@ public class Subcategoria {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public BigDecimal  getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(BigDecimal  precio) {
+        this.precio = precio;
+    }
+
+    public Integer getSubcategoria() {
+        return idSubcategoria;
+    }
+
+    public void setSubcategoria( Integer idSubcategoria) {
+        this.idSubcategoria = idSubcategoria;
     }
 
     public Boolean getHabilitado() {

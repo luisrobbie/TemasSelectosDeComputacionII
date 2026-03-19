@@ -1,4 +1,4 @@
-package com.tienda.online.entities;
+package com.tienda.online.models;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
