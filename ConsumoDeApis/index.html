@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consumo de API con JavaScript</title>
+  <style>
+    :root {
+      --bg: #f3f6fa;
+      --card: #ffffff;
+      --text: #1f2a37;
+      --muted: #6b7280;
+      --primary: #0b5ed7;
+      --primary-hover: #0a58ca;
+      --border: #d1d5db;
+      --success: #14532d;
+      --error: #991b1b;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(160deg, #eaf2ff, var(--bg));
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      padding: 20px;
+    }
+
+    .card {
+      width: min(900px, 100%);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.07);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 1.6rem;
+      text-align: center;
+    }
+
+    .footer {
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    p {
+      margin: 0 0 16px;
+      color: var(--muted);
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    input[type="url"] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.95rem;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      background: var(--primary);
+      color: white;
+      transition: background 0.2s ease;
+    }
+
+    button:hover {
+      background: var(--primary-hover);
+    }
+
+    button:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    .status {
+      margin-bottom: 10px;
+      font-weight: 600;
+      min-height: 1.2rem;
+    }
+
+    .status.ok {
+      color: var(--success);
+    }
+
+    .status.error {
+      color: var(--error);
+    }
+
+    pre {
+      margin: 0;
+      padding: 14px;
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 10px;
+      overflow: auto;
+      max-height: 420px;
+      font-size: 0.9rem;
+      line-height: 1.35;
+    }
+
+    @media (max-width: 700px) {
+      .controls {
+        grid-template-columns: 1fr;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>Consumo de API</h1>
+    <p>Presiona en el botón azul para mandar a llamar la API</p>
+
+    <div class="controls">
+      <input
+        id="apiUrl"
+        type="url"
+        placeholder="https://fakerapi.it/api/v2/resoursesthatyouwant"
+        value="https://fakerapi.it/api/v2/persons?_quantity=5"
+      >
+      <button id="btnConsumir" type="button">Consumir API</button>
+    </div>
+
+    <div id="status" class="status" aria-live="polite"></div>
+    <pre id="resultado">La respuesta del API aparecerá aquí...</pre>
+  </main>
+
+  <footer class="footer">Hecho por Luis Ángel Pérez Estrada</footer>
+
+  <script>
+    const btnConsumir = document.getElementById("btnConsumir");
+    const apiUrlInput = document.getElementById("apiUrl");
+    const statusEl = document.getElementById("status");
+    const resultadoEl = document.getElementById("resultado");
+
+    async function consumirApi() {
+      const apiUrl = apiUrlInput.value.trim();
+
+      if (!apiUrl) {
+        statusEl.textContent = "Ingresa una URL antes de consumir el API.";
+        statusEl.className = "status error";
+        resultadoEl.textContent = "";
+        return;
+      }
+
+      btnConsumir.disabled = true;
+      statusEl.textContent = "Consultando API...";
+      statusEl.className = "status";
+      resultadoEl.textContent = "Cargando...";
+
+      try {
+        const respuesta = await fetch(apiUrl);
+
+        if (!respuesta.ok) {
+          throw new Error("Error HTTP " + respuesta.status + " - " + respuesta.statusText);
+        }
+
+        // Validación de JSON
+        const texto = await respuesta.text();
+        let data;
+
+        try {
+          data = JSON.parse(texto);
+        } catch {
+          data = texto;
+        }
+
+        statusEl.textContent = "Respuesta recibida correctamente.";
+        statusEl.className = "status ok";
+
+        if (typeof data === "string") {
+          resultadoEl.textContent = data;
+        } else {
+          resultadoEl.textContent = JSON.stringify(data, null, 2);
+        }
+      } catch (error) {
+        statusEl.textContent = "No se pudo consumir el API. Revisa que la URL la hayas escrito correctamente.";
+        statusEl.className = "status error";
+        resultadoEl.textContent = error.message;
+      } finally {
+        btnConsumir.disabled = false;
+      }
+    }
+
+    btnConsumir.addEventListener("click", consumirApi);
+  </script>
+</body>
+</html>
