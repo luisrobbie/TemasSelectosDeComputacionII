@@ -1,0 +1,123 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at top, rgba(60, 130, 246, 0.22), transparent 32%),
+        linear-gradient(135deg, #eef4ff 0%, #f7f9fc 48%, #e8f0ff 100%);
+    color: #1f2937;
+    padding: 24px;
+}
+
+form#formulario_basico {
+    width: min(100%, 520px);
+    display: grid;
+    gap: 14px;
+    padding: 28px;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12);
+    backdrop-filter: blur(10px);
+}
+
+form#formulario_basico::before {
+    content: "Formulario datos básicos";
+    display: block;
+    margin-bottom: 4px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #0f172a;
+}
+
+form#formulario_basico::after {
+    content: "Completa los datos para enviar tu registro";
+    display: block;
+    margin-top: -6px;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    color: #64748b;
+}
+
+form#formulario_basico input,
+form#formulario_basico select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    background: #ffffff;
+    color: #0f172a;
+    font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.12s ease;
+}
+
+form#formulario_basico input::placeholder {
+    color: #94a3b8;
+}
+
+form#formulario_basico input:focus,
+form#formulario_basico select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.14);
+    transform: translateY(-1px);
+}
+
+form#formulario_basico label {
+    font-weight: 600;
+    color: #334155;
+    margin-top: 2px;
+}
+
+form#formulario_basico button {
+    border: 0;
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.12s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+form#formulario_basico button:hover {
+    transform: translateY(-1px);
+}
+
+form#formulario_basico button:active {
+    transform: translateY(0);
+}
+
+#guardarDatos {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: #ffffff;
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.22);
+}
+
+#limpiarDatos {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+#guardarDatos:focus-visible,
+#limpiarDatos:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.4);
+    outline-offset: 2px;
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 14px;
+    }
+
+    form#formulario_basico {
+        padding: 20px;
+        border-radius: 16px;
+    }
+}

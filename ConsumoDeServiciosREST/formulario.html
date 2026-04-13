@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario para catalogo de paises</title>
+    <link rel="stylesheet" href="formulario.css">
+</head>
+<body>  
+    <form id="formulario_basico">
+        <input type="text" id="name" name="name" placeholder="Name" required>
+        <input type="email" id="email" name="email" placeholder="Email" required>
+        <input type="text" id="account" name="account" placeholder="Account" required>
+        <input type="text" id="lastName" name="lastName" placeholder="Last Name" required>
+        <input min="0" max="10" type="number" id="avg" name="avg" placeholder="Avg" step="0.01" required>
+        <label>Country: </label>
+        <select id="country" name="country" required>
+            <option value="">Cargando países...</option>
+        </select><br><br>
+        <button type="submit" id="guardarDatos">Guardar</button>
+        <button type="button" id="limpiarDatos">Limpiar</button>
+    </form>
+    <script src="formulario.js"></script>
+</body>
+</html>
